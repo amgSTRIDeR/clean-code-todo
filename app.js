@@ -11,7 +11,10 @@ const taskInput = document.getElementById('new-task');
 const addButton = document.getElementsByTagName('button')[0];
 const incompleteTaskHolder = document.getElementById('incompleteTasks');
 const completedTasksHolder = document.getElementById('completed-tasks');
-const tasks = document.querySelectorAll('li');
+const tasks = [
+  ...incompleteTaskHolder.children,
+  ...completedTasksHolder.children,
+];
 
 const createNewTaskElement = function (taskString) {
   const task = document.createElement('li');
