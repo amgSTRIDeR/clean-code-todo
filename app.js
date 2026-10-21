@@ -97,12 +97,9 @@ const deleteTask = function () {
 
 const toggleTaskStatus = function () {
   const task = this.parentNode;
-  const taskHolder = task.parentNode;
-  if (taskHolder.id === 'completed-tasks') {
-    incompleteTaskHolder.appendChild(task);
-  } else {
-    completedTasksHolder.appendChild(task);
-  }
+  const targetList = this.checked ? completedTasksHolder : incompleteTaskHolder;
+
+  targetList.appendChild(task);
 };
 
 //The glue to hold it all together.
