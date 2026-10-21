@@ -15,7 +15,7 @@ const tasks = document.querySelectorAll('li');
 
 //New task list item
 const createNewTaskElement = function (taskString) {
-  const listItem = document.createElement('li');
+  const task = document.createElement('li');
 
   //input (checkbox)
   const checkBox = document.createElement('input'); //checkbx
@@ -46,22 +46,22 @@ const createNewTaskElement = function (taskString) {
   deleteButton.appendChild(deleteButtonImg);
 
   //and appending.
-  listItem.appendChild(checkBox);
-  listItem.appendChild(label);
-  listItem.appendChild(editInput);
-  listItem.appendChild(editButton);
-  listItem.appendChild(deleteButton);
-  return listItem;
+  task.appendChild(checkBox);
+  task.appendChild(label);
+  task.appendChild(editInput);
+  task.appendChild(editButton);
+  task.appendChild(deleteButton);
+  return task;
 };
 
 const addTask = function () {
   //Create a new list item with the text from the #new-task:
   if (!taskInput.value) return;
-  const listItem = createNewTaskElement(taskInput.value);
+  const task = createNewTaskElement(taskInput.value);
 
   //Append listItem to incompleteTaskHolder
-  incompleteTaskHolder.appendChild(listItem);
-  bindTaskEvents(listItem, taskToggle);
+  incompleteTaskHolder.appendChild(task);
+  bindTaskEvents(task, toggleTaskStatus);
 
   taskInput.value = '';
 };
@@ -69,12 +69,12 @@ const addTask = function () {
 //Edit an existing task.
 
 const editTask = function () {
-  const listItem = this.parentNode;
+  const task = this.parentNode;
 
-  const editInput = listItem.querySelector('input[type=text]');
-  const label = listItem.querySelector('label');
-  const editBtn = listItem.querySelector('.edit');
-  const containsClass = listItem.classList.contains('editMode');
+  const editInput = task.querySelector('input[type=text]');
+  const label = task.querySelector('label');
+  const editBtn = task.querySelector('.edit');
+  const containsClass = task.classList.contains('editMode');
   //If class of the parent is .editmode
   if (containsClass) {
     //switch to .editmode
@@ -87,24 +87,24 @@ const editTask = function () {
   }
 
   //toggle .editmode on the parent.
-  listItem.classList.toggle('editMode');
+  task.classList.toggle('editMode');
 };
 
 //Delete task.
 const deleteTask = function () {
-  const listItem = this.parentNode;
-  const ul = listItem.parentNode;
+  const task = this.parentNode;
+  const taskHolder = task.parentNode;
   //Remove the parent list item from the ul.
-  ul.removeChild(listItem);
+  taskHolder.removeChild(task);
 };
 
-const taskToggle = function () {
-  const listItem = this.parentNode;
-  const container = listItem.parentNode;
-  if (container.id === 'completed-tasks') {
-    incompleteTaskHolder.appendChild(listItem);
+const toggleTaskStatus = function () {
+  const task = this.parentNode;
+  const taskHolder = task.parentNode;
+  if (taskHolder.id === 'completed-tasks') {
+    incompleteTaskHolder.appendChild(task);
   } else {
-    completedTasksHolder.appendChild(listItem);
+    completedTasksHolder.appendChild(task);
   }
 };
 
@@ -127,8 +127,8 @@ const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
   checkBox.onchange = checkBoxEventHandler;
 };
 
-tasks.forEach((taskListItem) => {
-  bindTaskEvents(taskListItem, taskToggle);
+tasks.forEach((task) => {
+  bindTaskEvents(task, toggleTaskStatus);
 });
 
 // Issues with usability don't get seen until they are in front of a human tester.
