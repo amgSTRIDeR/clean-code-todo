@@ -90,9 +90,7 @@ const editTask = function () {
 };
 
 const deleteTask = function () {
-  const task = this.parentNode;
-  const taskHolder = task.parentNode;
-  taskHolder.removeChild(task);
+  this.parentNode.remove();
 };
 
 const toggleTaskStatus = function () {
