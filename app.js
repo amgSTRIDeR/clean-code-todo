@@ -15,36 +15,50 @@ const tasks = document.querySelectorAll('li');
 
 const createNewTaskElement = function (taskString) {
   const task = document.createElement('li');
-
   const checkBox = document.createElement('input');
   const label = document.createElement('label');
-  const editInput = document.createElement('input');
-  const editButton = document.createElement('button');
-
-  const deleteButton = document.createElement('button');
-  const deleteButtonImg = document.createElement('img');
 
   label.innerText = taskString;
   label.className = 'task';
 
   //Each element, needs appending
   checkBox.type = 'checkbox';
+
+  task.appendChild(checkBox);
+  task.appendChild(label);
+  task.appendChild(createEditInput());
+  task.append(createEditButton());
+  task.append(createDeleteButton());
+  return task;
+};
+
+const createEditInput = function () {
+  const editInput = document.createElement('input');
+
   editInput.type = 'text';
   editInput.className = 'task';
 
+  return editInput;
+};
+
+const createEditButton = function () {
+  const editButton = document.createElement('button');
+
   editButton.innerText = 'Edit'; //innerText encodes special characters, HTML does not.
   editButton.className = 'edit';
+
+  return editButton;
+};
+
+const createDeleteButton = function () {
+  const deleteButton = document.createElement('button');
+  const deleteButtonImg = document.createElement('img');
 
   deleteButton.className = 'delete';
   deleteButtonImg.src = './remove.svg';
   deleteButton.appendChild(deleteButtonImg);
 
-  task.appendChild(checkBox);
-  task.appendChild(label);
-  task.appendChild(editInput);
-  task.appendChild(editButton);
-  task.appendChild(deleteButton);
-  return task;
+  return deleteButton;
 };
 
 const addTask = function () {
