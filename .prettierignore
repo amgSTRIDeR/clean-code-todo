@@ -1,0 +1,7 @@
+package-lock.json
+.github
+.idea
+Dockerfile.dev
+docker-compose.dev.yml
+node_modules
+.devcontainer
