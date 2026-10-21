@@ -66,7 +66,7 @@ const addTask = function () {
   const task = createNewTaskElement(taskInput.value);
 
   incompleteTaskHolder.appendChild(task);
-  bindTaskEvents(task, toggleTaskStatus);
+  bindTaskEvents(task);
 
   taskInput.value = '';
 };
@@ -106,18 +106,18 @@ const toggleTaskStatus = function () {
 
 addButton.onclick = addTask;
 
-const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
-  const checkBox = taskListItem.querySelector('input[type=checkbox]');
-  const editButton = taskListItem.querySelector('button.edit');
-  const deleteButton = taskListItem.querySelector('button.delete');
+const bindTaskEvents = function (task) {
+  const checkBox = task.querySelector('input[type=checkbox]');
+  const editButton = task.querySelector('button.edit');
+  const deleteButton = task.querySelector('button.delete');
 
   editButton.onclick = editTask;
   deleteButton.onclick = deleteTask;
-  checkBox.onchange = checkBoxEventHandler;
+  checkBox.onchange = toggleTaskStatus;
 };
 
 tasks.forEach((task) => {
-  bindTaskEvents(task, toggleTaskStatus);
+  bindTaskEvents(task);
 });
 
 // Issues with usability don't get seen until they are in front of a human tester.
